@@ -1,0 +1,63 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Get version from tag
+        id: version
+        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+
+      - name: Verify manifest version matches tag
+        run: |
+          MANIFEST_VERSION=$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])")
+          TAG_VERSION="${{ steps.version.outputs.VERSION }}"
+          if [ "$MANIFEST_VERSION" != "$TAG_VERSION" ]; then
+            echo "ERROR: manifest version ($MANIFEST_VERSION) != tag version ($TAG_VERSION)"
+            exit 1
+          fi
+
+      - name: Build zip
+        run: |
+          zip -r "add_to_NotebookLM-${{ steps.version.outputs.VERSION }}.zip" . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x ".qmd-adaptive-search/*" \
+            -x "docs/*"
+
+      - name: Extract changelog for this version
+        id: changelog
+        run: |
+          python3 -c "
+          import re, sys
+          version = '${{ steps.version.outputs.VERSION }}'
+          with open('CHANGELOG.md', encoding='utf-8') as f:
+              text = f.read()
+          # Find section for this version
+          pattern = rf'## \[{re.escape(version)}\].*?\n(.*?)(?=\n## \[|\Z)'
+          m = re.search(pattern, text, re.DOTALL)
+          if m:
+              body = m.group(1).strip()
+          else:
+              body = f'Release {version}'
+          with open('release_body.md', 'w', encoding='utf-8') as f:
+              f.write(body)
+          " 
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: v${{ steps.version.outputs.VERSION }}
+          body_path: release_body.md
+          files: add_to_NotebookLM-${{ steps.version.outputs.VERSION }}.zip
+          generate_release_notes: false

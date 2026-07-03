@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Validate manifest.json
+        run: python3 -c "import json; json.load(open('manifest.json')); print('manifest.json OK')"
+
+      - name: Validate locales
+        run: |
+          python3 -c "
+          import json
+          for f in ['_locales/en/messages.json', '_locales/ru/messages.json']:
+              json.load(open(f, encoding='utf-8'))
+              print(f'{f} OK')
+          "
+
+      - name: Check required files
+        run: |
+          for f in background.js manifest.json README.md app/app.html popup/popup.html; do
+            test -f "$f" || { echo "MISSING: $f"; exit 1; }
+          done
+          echo "All required files present"
+
+      - name: Verify version consistency
+        run: |
+          python3 -c "
+          import json
+          m = json.load(open('manifest.json'))
+          v = m['version']
+          print(f'Version: {v}')
+          assert v == '1.2.0', f'Version mismatch: expected 1.2.0, got {v}'
+          "
+
+      - name: Build extension zip
+        run: |
+          mkdir -p build
+          zip -r "build/add_to_NotebookLM-$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])").zip" . \
+            -x ".git/*" \
+            -x ".github/*" \
+            -x ".qmd-adaptive-search/*" \
+            -x "docs/*" \
+            -x "build/*"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: extension
+          path: build/*.zip
