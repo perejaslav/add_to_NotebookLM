@@ -1,4 +1,4 @@
-// Background Service Worker for Add to NotebookLM
+// Background Service Worker for Add to Gemini Notebook
 // Handles API calls and message passing between content scripts and popup
 
 importScripts('lib/youtube-comments-api.js', 'lib/comments-to-md.js', 'lib/selection-to-source.js');
@@ -19,14 +19,14 @@ async function fetchWithTimeout(url, options = {}, timeout = 30000) {
 }
 
 // ============================================
-// NotebookLM API Client (inline)
+// Gemini Notebook API Client (inline)
 // ============================================
 
 const NotebookLMAPI = {
   BASE_URL: 'https://notebooklm.google.com',
   tokens: null,
 
-  // Get authentication tokens from NotebookLM page
+  // Get authentication tokens from Gemini Notebook page
   async getTokens(authuser = 0) {
     try {
       const url = authuser > 0
@@ -39,7 +39,7 @@ const NotebookLMAPI = {
       });
 
       if (!response.ok && response.type !== 'opaqueredirect') {
-        throw new Error('Failed to fetch NotebookLM page');
+        throw new Error('Failed to fetch Gemini Notebook page');
       }
 
       const html = await response.text();
@@ -49,14 +49,14 @@ const NotebookLMAPI = {
       const at = this.extractToken('SNlM0e', html);
 
       if (!bl || !at) {
-        throw new Error('Not authorized. Please login to NotebookLM first.');
+        throw new Error('Not authorized. Please login to Gemini Notebook first.');
       }
 
       this.tokens = { bl, at, authuser };
       return this.tokens;
     } catch (error) {
       console.error('getTokens error:', error);
-      throw new Error('Please login to NotebookLM first');
+      throw new Error('Please login to Gemini Notebook first');
     }
   },
 
@@ -239,7 +239,7 @@ const NotebookLMAPI = {
     return false;
   },
 
-  // Execute RPC call to NotebookLM
+  // Execute RPC call to Gemini Notebook
   async rpc(rpcId, params, sourcePath = '/') {
     if (!this.tokens) {
       await this.getTokens();
@@ -534,7 +534,7 @@ async function rebuildContextMenus() {
   // Existing menu item (preserved)
   chrome.contextMenus.create({
     id: 'send-to-notebooklm',
-    title: 'Send to NotebookLM',
+    title: 'Send to Gemini Notebook',
     contexts: ['page', 'link']
   });
 
@@ -557,7 +557,7 @@ async function showSelectionNotification(code, lang) {
     await chrome.notifications.create(`selection-${Date.now()}`, {
       type: 'basic',
       iconUrl: 'icons/icon128.png',
-      title: 'Add to NotebookLM',
+      title: 'Add to Gemini Notebook',
       message
     });
   } catch (error) {
@@ -728,7 +728,7 @@ async function handleMessage(request, sender) {
     try {
       await NotebookLMAPI.getTokens(currentAuthuser);
     } catch (error) {
-      return { error: 'Please login to NotebookLM first', err: 'Please authorize NotebookLM to continue' };
+      return { error: 'Please login to Gemini Notebook first', err: 'Please authorize Gemini Notebook to continue' };
     }
   }
 
@@ -1051,7 +1051,7 @@ async function saveToNotebook({ title, urls, notebookId, createNew }) {
   }
 }
 
-// Save to NotebookLM (legacy format)
+// Save to Gemini Notebook (legacy format)
 async function saveToNotebookLMOriginal(title, urls, currentURL, notebookID) {
   try {
     // Set progress indicator in local storage
@@ -1094,7 +1094,7 @@ async function saveToNotebookLMOriginal(title, urls, currentURL, notebookID) {
   }
 }
 
-// Fire-and-forget: fetch comments, format, send to NotebookLM
+// Fire-and-forget: fetch comments, format, send to Gemini Notebook
 async function doParseComments(notebookId, videoId, tabId) {
   const cancelToken = { cancelled: false };
   parseState = {
@@ -1147,7 +1147,7 @@ async function doParseComments(notebookId, videoId, tabId) {
 
     if (cancelToken.cancelled) return;
 
-    // Phase 4: Send to NotebookLM
+    // Phase 4: Send to Gemini Notebook
     parseState.progress.phase = 'sending';
     // Refresh tokens before sending (parsing may have taken minutes)
     await NotebookLMAPI.getTokens(currentAuthuser);
@@ -1198,4 +1198,4 @@ chrome.contextMenus.onClicked.addListener(async (info, tab) => {
   }
 });
 
-console.log('Add to NotebookLM: Background service worker started');
+console.log('Add to Gemini Notebook: Background service worker started');

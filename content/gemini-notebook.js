@@ -1,4 +1,4 @@
-// Content script for NotebookLM - Bulk Delete Sources + Drive Sync
+// Content script for Gemini Notebook - Bulk Delete Sources + Drive Sync
 // Injects a delete button when multiple sources are selected
 // Injects a sync button to refresh Google Drive sources
 

@@ -1,10 +1,10 @@
 {
   "extName": {
-    "message": "Add to NotebookLM",
+    "message": "Add to Gemini Notebook",
     "description": "Extension name"
   },
   "extDescription": {
-    "message": "Import YouTube videos and web pages to NotebookLM with one click. Bulk import, playlist support, and more.",
+    "message": "Import YouTube videos and web pages to Gemini Notebook with one click. Bulk import, playlist support, and more.",
     "description": "Extension description"
   },
   "popup_currentPage": {
@@ -64,7 +64,7 @@
     "description": "Error message"
   },
   "popup_loginRequired": {
-    "message": "Please login to NotebookLM first",
+    "message": "Please login to Gemini Notebook first",
     "description": "Login required message"
   },
   "popup_noNotebooks": {
@@ -128,11 +128,11 @@
     "description": "Channel label"
   },
   "app_title": {
-    "message": "Add to NotebookLM",
+    "message": "Add to Gemini Notebook",
     "description": "App page title"
   },
   "app_description": {
-    "message": "Your toolkit for working with NotebookLM",
+    "message": "Your toolkit for working with Gemini Notebook",
     "description": "App page description"
   },
   "bulk_title": {
@@ -140,7 +140,7 @@
     "description": "Bulk import page title"
   },
   "bulk_description": {
-    "message": "Import multiple links to NotebookLM at once",
+    "message": "Import multiple links to Gemini Notebook at once",
     "description": "Bulk import description"
   },
   "bulk_linksTab": {
@@ -220,7 +220,7 @@
     "description": "Account setting label"
   },
   "settings_accountHint": {
-    "message": "Select which Google account to use for NotebookLM",
+    "message": "Select which Google account to use for Gemini Notebook",
     "description": "Account setting hint"
   },
   "settings_autoOpen": {
@@ -240,12 +240,12 @@
     "description": "About section title"
   },
   "settings_aboutText": {
-    "message": "Chrome extension for importing YouTube videos, playlists, channels, web pages and comments into Google NotebookLM. Supports bulk import and multiple Google accounts.",
+    "message": "Chrome extension for importing YouTube videos, playlists, channels, web pages and comments into Google Gemini Notebook. Supports bulk import and multiple Google accounts.",
     "description": "About text"
   },
   "settings_openNotebookLM": {
-    "message": "Open NotebookLM",
-    "description": "Open NotebookLM button"
+    "message": "Open Gemini Notebook",
+    "description": "Open Gemini Notebook button"
   },
   "settings_accountChanged": {
     "message": "Account changed. Notebooks reloaded.",
@@ -272,11 +272,11 @@
     "description": "Tabs plural"
   },
   "settings_enableBulkDelete": {
-    "message": "Enable bulk delete button in NotebookLM",
+    "message": "Enable bulk delete button in Gemini Notebook",
     "description": "Bulk delete setting label"
   },
   "settings_bulkDeleteHint": {
-    "message": "Shows a delete button when you select multiple sources in NotebookLM",
+    "message": "Shows a delete button when you select multiple sources in Gemini Notebook",
     "description": "Bulk delete setting hint"
   },
   "comments_parseComments": {
@@ -300,8 +300,8 @@
     "description": "Formatting comments progress"
   },
   "comments_sending": {
-    "message": "Sending to NotebookLM...",
-    "description": "Sending comments to NotebookLM"
+    "message": "Sending to Gemini Notebook...",
+    "description": "Sending comments to Gemini Notebook"
   },
   "comments_commentsDisabled": {
     "message": "Comments are disabled for this video",
@@ -380,11 +380,11 @@
     "description": "PDF capture error"
   },
   "settings_enableSyncDrive": {
-    "message": "Enable Drive sync button in NotebookLM",
+    "message": "Enable Drive sync button in Gemini Notebook",
     "description": "Drive sync setting label"
   },
   "settings_syncDriveHint": {
-    "message": "Shows a sync button to refresh Google Docs and Sheets sources in NotebookLM",
+    "message": "Shows a sync button to refresh Google Docs and Sheets sources in Gemini Notebook",
     "description": "Drive sync setting hint"
   },
   "settings_selectionTitle": {
@@ -392,11 +392,11 @@
     "description": "Selection settings section title"
   },
   "settings_selectionHint": {
-    "message": "Configure how selected text is added to NotebookLM via the right-click menu.",
+    "message": "Configure how selected text is added to Gemini Notebook via the right-click menu.",
     "description": "Selection settings hint"
   },
   "settings_enableSelection": {
-    "message": "Enable \"Add selection to NotebookLM\" context menu",
+    "message": "Enable \"Add selection to Gemini Notebook\" context menu",
     "description": "Selection context menu enable checkbox"
   },
   "settings_enableSelectionHint": {

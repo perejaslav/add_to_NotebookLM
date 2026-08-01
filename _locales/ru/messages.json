@@ -1,10 +1,10 @@
 {
   "extName": {
-    "message": "Add to NotebookLM",
+    "message": "Add to Gemini Notebook",
     "description": "Название расширения"
   },
   "extDescription": {
-    "message": "Импортируйте YouTube видео и веб-страницы в NotebookLM одним кликом. Массовый импорт, поддержка плейлистов и многое другое.",
+    "message": "Импортируйте YouTube видео и веб-страницы в Gemini Notebook одним кликом. Массовый импорт, поддержка плейлистов и многое другое.",
     "description": "Описание расширения"
   },
   "popup_currentPage": {
@@ -64,7 +64,7 @@
     "description": "Сообщение об ошибке"
   },
   "popup_loginRequired": {
-    "message": "Сначала войдите в NotebookLM",
+    "message": "Сначала войдите в Gemini Notebook",
     "description": "Сообщение о необходимости входа"
   },
   "popup_noNotebooks": {
@@ -128,11 +128,11 @@
     "description": "Метка канала"
   },
   "app_title": {
-    "message": "Add to NotebookLM",
+    "message": "Add to Gemini Notebook",
     "description": "Заголовок страницы приложения"
   },
   "app_description": {
-    "message": "Ваш набор инструментов для работы с NotebookLM",
+    "message": "Ваш набор инструментов для работы с Gemini Notebook",
     "description": "Описание страницы приложения"
   },
   "bulk_title": {
@@ -140,7 +140,7 @@
     "description": "Заголовок страницы массового импорта"
   },
   "bulk_description": {
-    "message": "Импортируйте несколько ссылок в NotebookLM за раз",
+    "message": "Импортируйте несколько ссылок в Gemini Notebook за раз",
     "description": "Описание массового импорта"
   },
   "bulk_linksTab": {
@@ -220,7 +220,7 @@
     "description": "Метка выбора аккаунта"
   },
   "settings_accountHint": {
-    "message": "Выберите аккаунт Google для NotebookLM",
+    "message": "Выберите аккаунт Google для Gemini Notebook",
     "description": "Подсказка выбора аккаунта"
   },
   "settings_autoOpen": {
@@ -240,12 +240,12 @@
     "description": "Заголовок раздела О расширении"
   },
   "settings_aboutText": {
-    "message": "Chrome-расширение для импорта YouTube видео, плейлистов, каналов, веб-страниц и комментариев в Google NotebookLM. Поддержка массового импорта и нескольких аккаунтов Google.",
+    "message": "Chrome-расширение для импорта YouTube видео, плейлистов, каналов, веб-страниц и комментариев в Google Gemini Notebook. Поддержка массового импорта и нескольких аккаунтов Google.",
     "description": "Текст о расширении"
   },
   "settings_openNotebookLM": {
-    "message": "Открыть NotebookLM",
-    "description": "Кнопка открытия NotebookLM"
+    "message": "Открыть Gemini Notebook",
+    "description": "Кнопка открытия Gemini Notebook"
   },
   "settings_accountChanged": {
     "message": "Аккаунт изменён. Нотбуки перезагружены.",
@@ -272,11 +272,11 @@
     "description": "Вкладки множественное число"
   },
   "settings_enableBulkDelete": {
-    "message": "Включить кнопку массового удаления в NotebookLM",
+    "message": "Включить кнопку массового удаления в Gemini Notebook",
     "description": "Настройка массового удаления"
   },
   "settings_bulkDeleteHint": {
-    "message": "Показывает кнопку удаления при выборе нескольких источников в NotebookLM",
+    "message": "Показывает кнопку удаления при выборе нескольких источников в Gemini Notebook",
     "description": "Подсказка настройки массового удаления"
   },
   "comments_parseComments": {
@@ -300,8 +300,8 @@
     "description": "Прогресс форматирования"
   },
   "comments_sending": {
-    "message": "Отправка в NotebookLM...",
-    "description": "Отправка комментариев в NotebookLM"
+    "message": "Отправка в Gemini Notebook...",
+    "description": "Отправка комментариев в Gemini Notebook"
   },
   "comments_commentsDisabled": {
     "message": "Комментарии отключены для этого видео",
@@ -380,11 +380,11 @@
     "description": "Ошибка захвата PDF"
   },
   "settings_enableSyncDrive": {
-    "message": "Включить кнопку синхронизации Drive в NotebookLM",
+    "message": "Включить кнопку синхронизации Drive в Gemini Notebook",
     "description": "Настройка синхронизации Drive"
   },
   "settings_syncDriveHint": {
-    "message": "Показывает кнопку синхронизации для обновления источников Google Документов и Таблиц в NotebookLM",
+    "message": "Показывает кнопку синхронизации для обновления источников Google Документов и Таблиц в Gemini Notebook",
     "description": "Подсказка настройки синхронизации Drive"
   },
   "settings_selectionTitle": {
@@ -392,11 +392,11 @@
     "description": "Заголовок секции настроек выделения"
   },
   "settings_selectionHint": {
-    "message": "Настройте, как выделенный текст добавляется в NotebookLM через контекстное меню.",
+    "message": "Настройте, как выделенный текст добавляется в Gemini Notebook через контекстное меню.",
     "description": "Подсказка настроек выделения"
   },
   "settings_enableSelection": {
-    "message": "Включить пункт \"Добавить выделение в NotebookLM\"",
+    "message": "Включить пункт \"Добавить выделение в Gemini Notebook\"",
     "description": "Чекбокс включения контекстного меню выделения"
   },
   "settings_enableSelectionHint": {

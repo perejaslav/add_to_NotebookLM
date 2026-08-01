@@ -1,4 +1,4 @@
-// Popup script for Add to NotebookLM
+// Popup script for Add to Gemini Notebook
 
 // Initialize theme immediately (before DOMContentLoaded)
 (async function initThemeEarly() {
@@ -197,7 +197,7 @@ async function loadNotebooks() {
 
     if (response.error) {
       showStatus('error', response.error);
-      const loginText = t('popup_loginRequired', 'Login to NotebookLM first');
+      const loginText = t('popup_loginRequired', 'Login to Gemini Notebook first');
       notebookSelect.textContent = '';
       const loginOption = document.createElement('option');
       loginOption.value = '';
@@ -752,7 +752,7 @@ function updateParseUI(status) {
   } else if (phase === 'formatting') {
     parseProgressText.textContent = t('comments_formatting', 'Formatting...');
   } else if (phase === 'sending') {
-    parseProgressText.textContent = t('comments_sending', 'Sending to NotebookLM...');
+    parseProgressText.textContent = t('comments_sending', 'Sending to Gemini Notebook...');
   } else if (phase === 'done') {
     stopProgressPolling();
     parseProgress.classList.add('hidden');

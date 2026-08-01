@@ -9,7 +9,7 @@
 </p>
 
 <p align="center">
-  <strong>Текущая версия: 1.3.0</strong>
+  <strong>Текущая версия: 1.3.1</strong>
 </p>
 
 ---
@@ -20,9 +20,13 @@ Add to Gemini Notebook — расширение для Google Chrome, котор
 
 Проект создан [@AndyShaman](https://github.com/AndyShaman) и развивается как open-source при участии [@perejaslav](https://github.com/perejaslav).
 
+## Что изменилось в версии 1.3.1
+
+Версия 1.3.1 завершает переход на современное название **Gemini Notebook**. Обновлены название расширения, русская и английская локализации, интерфейс, уведомления, контекстное меню, внутренние пути и релизная сборка. Техническая совместимость версии 1.3.0 с прежними доменами Google сохранена.
+
 ## Что изменилось в версии 1.3.0
 
-Google переименовал NotebookLM в Gemini Notebook и перевёл часть аккаунтов на новые домены. Версия 1.2.0 обращалась только к старому адресу `notebooklm.google.com`, поэтому после перенаправления не могла получить токены и выполнить RPC-запросы.
+Google переименовал Gemini Notebook в Gemini Notebook и перевёл часть аккаунтов на новые домены. Версия 1.2.0 обращалась только к старому адресу `notebooklm.google.com`, поэтому после перенаправления не могла получить токены и выполнить RPC-запросы.
 
 Версия 1.3.0:
 
@@ -73,7 +77,7 @@ Google переименовал NotebookLM в Gemini Notebook и перевёл 
 
 ## Установка готовой версии
 
-1. Откройте раздел [Releases](https://github.com/perejaslav/add_to_NotebookLM/releases).
+1. Откройте раздел [Releases](https://github.com/perejaslav/add_to_Gemini Notebook/releases).
 2. Скачайте ZIP последней версии.
 3. Распакуйте архив в постоянную папку. После установки эту папку нельзя перемещать или удалять.
 4. Откройте `chrome://extensions/`.
@@ -128,7 +132,8 @@ GitHub Actions проверяет JSON-файлы, локализации, об�
 
 ## История версий
 
-- **1.3.0** — восстановлена работа после переименования NotebookLM в Gemini Notebook и миграции доменов.
+- **1.3.1** — завершён полный ребрендинг интерфейса и сборки на Gemini Notebook.
+- **1.3.0** — восстановлена работа после переименования Gemini Notebook в Gemini Notebook и миграции доменов.
 - **1.2.0** — добавлена отправка выделенного текста через контекстное меню, уведомления, настройки длины и метаданных.
 - **1.1.0** — базовый выпуск с импортом страниц, PDF, YouTube, массовыми операциями и синхронизацией Drive.
 
@@ -150,19 +155,19 @@ MIT — разрешено использовать, изменять и рас�
 
 Add to Gemini Notebook is a Chrome extension for sending web pages, YouTube videos, comments, selected text, and full-page PDF captures directly to [Google Gemini Notebook](https://notebook.google.com/).
 
-Current version: **1.3.0**.
+Current version: **1.3.1**.
 
 The extension uses Google's internal RPC client and automatically selects the correct host for the active Google account.
 
 ## What changed in 1.3.0
 
-Google renamed NotebookLM to Gemini Notebook and migrated some accounts to new domains. Version 1.2.0 used only `notebooklm.google.com`, so redirected accounts could no longer retrieve authentication tokens or complete RPC requests.
+Google renamed Gemini Notebook to Gemini Notebook and migrated some accounts to new domains. Version 1.2.0 used only `notebooklm.google.com`, so redirected accounts could no longer retrieve authentication tokens or complete RPC requests.
 
 Version 1.3.0:
 
 - supports `notebook.google.com`;
 - supports the Workspace host `notebook.cloud.google.com`;
-- preserves compatibility with the legacy NotebookLM hosts;
+- preserves compatibility with the legacy Gemini Notebook hosts;
 - follows Google redirects during token extraction;
 - remembers the resolved host separately for each `authuser`;
 - routes RPC and PDF requests to the active account host;
@@ -173,7 +178,7 @@ All 1.2.0 features remain available, including selected-text import from the con
 
 ## Installation
 
-1. Open the [Releases](https://github.com/perejaslav/add_to_NotebookLM/releases) page.
+1. Open the [Releases](https://github.com/perejaslav/add_to_Gemini Notebook/releases) page.
 2. Download the ZIP for the latest version.
 3. Extract it to a permanent folder.
 4. Open `chrome://extensions/`.
@@ -199,4 +204,4 @@ URLs, page titles, selected text, and chosen content are sent to Google Gemini N
 
 ## Authors
 
-[@AndyShaman](https://github.com/AndyShaman) · [@perejaslav](https://github.com/perejaslav) · [Repository](https://github.com/perejaslav/add_to_NotebookLM)
+[@AndyShaman](https://github.com/AndyShaman) · [@perejaslav](https://github.com/perejaslav) · [Repository](https://github.com/perejaslav/add_to_Gemini Notebook)
