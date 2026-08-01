@@ -1,4 +1,4 @@
-// Bulk Import App for Add to NotebookLM
+// Bulk Import App for Add to Gemini Notebook
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -175,7 +175,7 @@ async function loadNotebooks() {
     const response = await sendMessage({ cmd: 'list-notebooks' });
 
     if (response.error) {
-      const loginText = I18n ? I18n.get('popup_loginRequired') : 'Login to NotebookLM first';
+      const loginText = I18n ? I18n.get('popup_loginRequired') : 'Login to Gemini Notebook first';
       notebookSelect.textContent = '';
       const loginOption = document.createElement('option');
       loginOption.value = '';
@@ -598,7 +598,7 @@ function sendMessage(message) {
 // Load settings
 async function loadSettings() {
   try {
-    // Add click handler for Open NotebookLM button
+    // Add click handler for Open Gemini Notebook button
     const openBtn = document.getElementById('open-notebooklm-btn');
     if (openBtn) {
       openBtn.addEventListener('click', () => {
