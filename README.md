@@ -16,30 +16,23 @@
 
 ## О проекте
 
-Add to Gemini Notebook — расширение для Google Chrome, которое добавляет контент в [Gemini Notebook](https://notebook.google.com/) прямо из браузера. Оно работает без официального API: использует внутренний RPC-клиент Google и автоматически выбирает домен, связанный с активным Google-аккаунтом.
+Add to Gemini Notebook — расширение для Google Chrome, которое добавляет контент в [Gemini Notebook](https://notebook.google.com/) прямо из браузера. Оно работает без официального API, использует внутренний RPC-клиент Google и автоматически выбирает домен активного Google-аккаунта.
 
 Проект создан [@AndyShaman](https://github.com/AndyShaman) и развивается как open-source при участии [@perejaslav](https://github.com/perejaslav).
 
 ## Что изменилось в версии 1.3.1
 
-Версия 1.3.1 завершает переход на современное название **Gemini Notebook**. Обновлены название расширения, русская и английская локализации, интерфейс, уведомления, контекстное меню, внутренние пути и релизная сборка. Техническая совместимость версии 1.3.0 с прежними доменами Google сохранена.
+Версия 1.3.1 завершает переход на современное название **Gemini Notebook**:
 
-## Что изменилось в версии 1.3.0
+- обновлено название расширения в Manifest V3;
+- переработаны русская и английская локализации;
+- обновлены заголовки, кнопки, уведомления, подсказки и контекстное меню;
+- `content/notebooklm.js` переименован в `content/gemini-notebook.js`;
+- версия синхронизирована в интерфейсе, CI и релизной сборке;
+- добавлена автоматическая проверка отсутствия устаревшего пользовательского брендинга;
+- сохранена техническая совместимость со старыми доменами Google.
 
-Google переименовал Gemini Notebook в Gemini Notebook и перевёл часть аккаунтов на новые домены. Версия 1.2.0 обращалась только к старому адресу `notebooklm.google.com`, поэтому после перенаправления не могла получить токены и выполнить RPC-запросы.
-
-Версия 1.3.0:
-
-- поддерживает `notebook.google.com`;
-- поддерживает Workspace-домен `notebook.cloud.google.com`;
-- сохраняет совместимость с `notebooklm.google.com` и `notebooklm.cloud.google.com`;
-- следует перенаправлению Google при получении токенов;
-- запоминает фактический домен отдельно для каждого `authuser`;
-- направляет RPC- и PDF-запросы на домен активного аккаунта;
-- использует новый service worker `background-entry.js`, который загружает слой совместимости до основной логики;
-- выпускается под названием **Add to Gemini Notebook**.
-
-Возможности версии 1.2.0 сохранены полностью, включая добавление выделенного текста через контекстное меню.
+Рабочая логика версии 1.3.0 не менялась.
 
 ## Возможности
 
@@ -68,24 +61,24 @@ Google переименовал Gemini Notebook в Gemini Notebook и перев
 
 ### Интерфейс и настройки
 
-- несколько Google-аккаунтов;
+- поддержка нескольких Google-аккаунтов;
 - автоматический выбор домена аккаунта;
 - тёмная тема;
 - русский и английский интерфейс;
 - настройка минимальной и максимальной длины выделения;
-- настройка добавления URL, заголовка страницы и времени сохранения к выделенному тексту.
+- добавление URL, заголовка страницы и времени сохранения к выделенному тексту.
 
-## Установка готовой версии
+## Установка
 
-1. Откройте раздел [Releases](https://github.com/perejaslav/add_to_Gemini Notebook/releases).
+1. Откройте раздел [Releases](https://github.com/perejaslav/add_to_NotebookLM/releases).
 2. Скачайте ZIP последней версии.
-3. Распакуйте архив в постоянную папку. После установки эту папку нельзя перемещать или удалять.
+3. Распакуйте архив в постоянную папку.
 4. Откройте `chrome://extensions/`.
 5. Включите «Режим разработчика».
 6. Нажмите «Загрузить распакованное расширение».
 7. Выберите папку, в корне которой находится `manifest.json`.
 
-После обновления существующей установки нажмите кнопку «Обновить» на странице расширений или удалите старую распакованную копию и загрузите новую папку.
+После обновления существующей установки нажмите «Обновить» на странице расширений либо удалите старую распакованную копию и загрузите новую папку.
 
 ## Использование
 
@@ -93,18 +86,18 @@ Google переименовал Gemini Notebook в Gemini Notebook и перев
 2. Откройте нужную веб-страницу или YouTube-видео.
 3. Нажмите значок расширения.
 4. Выберите блокнот.
-5. Выберите подходящее действие: добавить ссылку, видео, комментарии или страницу как PDF.
+5. Выберите действие: добавить ссылку, видео, комментарии или страницу как PDF.
 
 ### Добавление выделенного текста
 
-1. Выделите текст на любой странице.
+1. Выделите текст на странице.
 2. Нажмите правую кнопку мыши.
 3. Выберите «Добавить выделение в Gemini Notebook».
 4. Текст будет добавлен как отдельный источник с настроенными метаданными.
 
 ### Добавление страницы как PDF
 
-Кнопка добавления как PDF создаёт полный снимок страницы и загружает его в Gemini Notebook. Этот вариант полезен для длинных статей и динамических страниц, где обычный импорт по URL может получить неполное содержимое.
+Кнопка добавления как PDF создаёт полный снимок страницы и загружает его в Gemini Notebook. Этот режим полезен для длинных статей и динамических страниц, где обычный импорт по URL может получить неполное содержимое.
 
 ## Поддерживаемые домены
 
@@ -112,32 +105,29 @@ Google переименовал Gemini Notebook в Gemini Notebook и перев
 |---|---|
 | Обычный Google-аккаунт | `notebook.google.com` |
 | Google Workspace | `notebook.cloud.google.com` |
-| Старые адреса | `notebooklm.google.com`, `notebooklm.cloud.google.com` |
+| Legacy-адреса | `notebooklm.google.com`, `notebooklm.cloud.google.com` |
 
-Расширение автоматически определяет конечный домен после входа и перенаправляет последующие запросы на него.
+Legacy-адреса используются только для обратной совместимости и автоматически перенаправляются на актуальный домен аккаунта.
 
-## Разработка и проверка
-
-Основные файлы:
+## Структура проекта
 
 - `manifest.json` — конфигурация Manifest V3;
 - `background-entry.js` — входной файл service worker;
-- `lib/gemini-notebook-compat.js` — совместимость со старыми и новыми доменами;
+- `lib/gemini-notebook-compat.js` — совместимость с актуальными и legacy-доменами;
 - `background.js` — основная логика расширения;
+- `content/gemini-notebook.js` — интеграция со страницей Gemini Notebook;
 - `popup/` — всплывающее окно;
 - `app/` — массовые операции и настройки;
-- `content/` — скрипты страниц Gemini Notebook и YouTube.
+- `content/` — дополнительные content scripts.
 
-GitHub Actions проверяет JSON-файлы, локализации, обязательные файлы, соответствие версии и собирает установочный ZIP.
+GitHub Actions проверяет JSON, локализации, обязательные файлы, версию, пользовательский брендинг и структуру релизного ZIP.
 
 ## История версий
 
-- **1.3.1** — завершён полный ребрендинг интерфейса и сборки на Gemini Notebook.
-- **1.3.1** — завершён полный ребрендинг интерфейса и сборки на Gemini Notebook.
-- **1.3.1** — завершён полный ребрендинг интерфейса и сборки на Gemini Notebook.
-- **1.3.0** — восстановлена работа после переименования Gemini Notebook в Gemini Notebook и миграции доменов.
-- **1.2.0** — добавлена отправка выделенного текста через контекстное меню, уведомления, настройки длины и метаданных.
-- **1.1.0** — базовый выпуск с импортом страниц, PDF, YouTube, массовыми операциями и синхронизацией Drive.
+- **1.3.1** — завершён полный ребрендинг интерфейса, локализаций и сборки на Gemini Notebook.
+- **1.3.0** — восстановлена работа после миграции Google на новые домены.
+- **1.2.0** — добавлена отправка выделенного текста, уведомления и настройки метаданных.
+- **1.1.0** — базовый выпуск с импортом страниц, PDF, YouTube и массовыми операциями.
 
 Подробности находятся в [CHANGELOG.md](CHANGELOG.md).
 
@@ -161,26 +151,13 @@ Current version: **1.3.1**.
 
 The extension uses Google's internal RPC client and automatically selects the correct host for the active Google account.
 
-## What changed in 1.3.0
+## What changed in 1.3.1
 
-Google renamed Gemini Notebook to Gemini Notebook and migrated some accounts to new domains. Version 1.2.0 used only `notebooklm.google.com`, so redirected accounts could no longer retrieve authentication tokens or complete RPC requests.
-
-Version 1.3.0:
-
-- supports `notebook.google.com`;
-- supports the Workspace host `notebook.cloud.google.com`;
-- preserves compatibility with the legacy Gemini Notebook hosts;
-- follows Google redirects during token extraction;
-- remembers the resolved host separately for each `authuser`;
-- routes RPC and PDF requests to the active account host;
-- loads a dedicated compatibility layer before the existing background logic;
-- uses the product name **Add to Gemini Notebook**.
-
-All 1.2.0 features remain available, including selected-text import from the context menu.
+Version 1.3.1 completes the product rename to **Gemini Notebook** across the extension name, English and Russian localizations, interface text, notifications, context menu, content-script path, CI checks, and release packaging. Runtime behavior from version 1.3.0 remains unchanged.
 
 ## Installation
 
-1. Open the [Releases](https://github.com/perejaslav/add_to_Gemini Notebook/releases) page.
+1. Open the [Releases](https://github.com/perejaslav/add_to_NotebookLM/releases) page.
 2. Download the ZIP for the latest version.
 3. Extract it to a permanent folder.
 4. Open `chrome://extensions/`.
@@ -200,10 +177,14 @@ All 1.2.0 features remain available, including selected-text import from the con
 - synchronize Google Drive sources;
 - use multiple Google accounts, dark mode, and English/Russian localization.
 
+## Compatibility
+
+The extension supports `notebook.google.com` and `notebook.cloud.google.com`. Legacy Google domains remain supported only for transparent migration and redirect handling.
+
 ## Privacy
 
 URLs, page titles, selected text, and chosen content are sent to Google Gemini Notebook only after an explicit user action. The extension does not use a third-party server to store this content.
 
 ## Authors
 
-[@AndyShaman](https://github.com/AndyShaman) · [@perejaslav](https://github.com/perejaslav) · [Repository](https://github.com/perejaslav/add_to_Gemini Notebook)
+[@AndyShaman](https://github.com/AndyShaman) · [@perejaslav](https://github.com/perejaslav) · [Repository](https://github.com/perejaslav/add_to_NotebookLM)
