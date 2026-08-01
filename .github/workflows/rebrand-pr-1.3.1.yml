@@ -1,0 +1,38 @@
+name: Apply Gemini Notebook 1.3.1 Rebrand
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    if: github.head_ref == 'release/gemini-notebook-1.3.1' && github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: release/gemini-notebook-1.3.1
+          fetch-depth: 0
+      - name: Apply rebrand
+        run: python3 scripts/rebrand_1_3_1.py
+      - name: Validate
+        run: |
+          python3 -m json.tool manifest.json >/dev/null
+          python3 -m json.tool _locales/en/messages.json >/dev/null
+          python3 -m json.tool _locales/ru/messages.json >/dev/null
+          test "$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])")" = "1.3.1"
+          test -f content/gemini-notebook.js
+          test ! -f content/notebooklm.js
+          ! grep -RIn --exclude='CHANGELOG.md' --exclude='gemini-notebook-compat.js' --exclude='README.md' -E 'Add to NotebookLM|>[^<]*NotebookLM|"[^"]*NotebookLM' _locales app popup content background.js manifest.json
+      - name: Commit generated changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "release: complete Gemini Notebook rebrand (v1.3.1)"
+          git push origin HEAD:release/gemini-notebook-1.3.1
