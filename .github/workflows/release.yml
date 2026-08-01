@@ -2,8 +2,16 @@ name: Release
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*'
+    paths:
+      - 'manifest.json'
+      - 'CHANGELOG.md'
+      - 'README.md'
+      - '.github/workflows/release.yml'
+  workflow_dispatch:
 
 jobs:
   release:
@@ -13,51 +21,87 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Get version from tag
+      - name: Resolve release version
         id: version
-        run: echo "VERSION=${GITHUB_REF#refs/tags/v}" >> "$GITHUB_OUTPUT"
+        shell: bash
+        run: |
+          if [[ "$GITHUB_REF" == refs/tags/v* ]]; then
+            VERSION="${GITHUB_REF#refs/tags/v}"
+          else
+            VERSION=$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])")
+          fi
+          echo "VERSION=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "TAG=v$VERSION" >> "$GITHUB_OUTPUT"
 
-      - name: Verify manifest version matches tag
+      - name: Verify manifest version
         run: |
           MANIFEST_VERSION=$(python3 -c "import json; print(json.load(open('manifest.json'))['version'])")
-          TAG_VERSION="${{ steps.version.outputs.VERSION }}"
-          if [ "$MANIFEST_VERSION" != "$TAG_VERSION" ]; then
-            echo "ERROR: manifest version ($MANIFEST_VERSION) != tag version ($TAG_VERSION)"
+          RELEASE_VERSION="${{ steps.version.outputs.VERSION }}"
+          if [ "$MANIFEST_VERSION" != "$RELEASE_VERSION" ]; then
+            echo "ERROR: manifest version ($MANIFEST_VERSION) != release version ($RELEASE_VERSION)"
             exit 1
           fi
 
-      - name: Build zip
+      - name: Check whether release already exists
+        id: release_check
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.version.outputs.TAG }}
         run: |
-          zip -r "add_to_NotebookLM-${{ steps.version.outputs.VERSION }}.zip" . \
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "Release $TAG already exists; nothing to publish."
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Build extension zip
+        if: steps.release_check.outputs.exists == 'false'
+        run: |
+          zip -r "add_to_Gemini_Notebook-${{ steps.version.outputs.VERSION }}.zip" . \
             -x ".git/*" \
             -x ".github/*" \
             -x ".qmd-adaptive-search/*" \
-            -x "docs/*"
+            -x "docs/*" \
+            -x "build/*" \
+            -x ".gitignore" \
+            -x "README.md" \
+            -x "CHANGELOG.md"
+
+      - name: Validate extension zip
+        if: steps.release_check.outputs.exists == 'false'
+        run: |
+          unzip -t "add_to_Gemini_Notebook-${{ steps.version.outputs.VERSION }}.zip"
+          unzip -l "add_to_Gemini_Notebook-${{ steps.version.outputs.VERSION }}.zip" | grep -q "manifest.json"
 
       - name: Extract changelog for this version
-        id: changelog
+        if: steps.release_check.outputs.exists == 'false'
         run: |
           python3 -c "
-          import re, sys
+          import re
           version = '${{ steps.version.outputs.VERSION }}'
           with open('CHANGELOG.md', encoding='utf-8') as f:
               text = f.read()
-          # Find section for this version
           pattern = rf'## \[{re.escape(version)}\].*?\n(.*?)(?=\n## \[|\Z)'
-          m = re.search(pattern, text, re.DOTALL)
-          if m:
-              body = m.group(1).strip()
-          else:
-              body = f'Release {version}'
+          match = re.search(pattern, text, re.DOTALL)
+          body = match.group(1).strip() if match else f'Release {version}'
           with open('release_body.md', 'w', encoding='utf-8') as f:
               f.write(body)
-          " 
+          "
 
       - name: Create GitHub Release
+        if: steps.release_check.outputs.exists == 'false'
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.version.outputs.TAG }}
+          target_commitish: ${{ github.sha }}
           name: v${{ steps.version.outputs.VERSION }}
           body_path: release_body.md
-          files: add_to_NotebookLM-${{ steps.version.outputs.VERSION }}.zip
+          files: add_to_Gemini_Notebook-${{ steps.version.outputs.VERSION }}.zip
+          draft: false
+          prerelease: false
+          make_latest: true
           generate_release_notes: false
